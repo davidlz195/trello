@@ -71,7 +71,7 @@ const TrelloForm = (props) => {
     const pos = "top";
 
     if (title.includes("DEV")) {
-      const idLabels = ["DEV"];
+      const idLabels = '5eb79eef7669b225494bc374';
       const due = null;
       axios
         .post(
@@ -120,7 +120,7 @@ const TrelloForm = (props) => {
           console.error(err);
         });
     } else {
-      const idLabels = ["GENERAL"];
+      const idLabels = '5eb79eef7669b225494bc378';
       const due = null;
       axios
         .post(
