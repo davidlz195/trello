@@ -65,25 +65,24 @@ const TrelloForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const name = values.title;
-    const desc = values.description;
-    const idList = "5eb79eefecc831684564d6f8";
+    const title = values.title;
+    const description = values.description;
+    const listId = "5eb79eefecc831684564d6f8";
     const pos = "top";
 
-    if (name.includes("DEV")) {
+    if (title.includes("DEV")) {
       const idLabels = ["DEV"];
-      console.log(idLabels);
       const due = null;
       axios
         .post(
           "https://api.trello.com/1/cards?key=473378f668b151df4ad3fed7538dc1cf&token=b25458399a5c14fe69cce0bd66aed91bd5a35cde3a2a627c9738cd2abd7df930",
           {
-            name,
-            desc,
-            idLabels,
-            idList,
-            pos,
-            due,
+            name: title,
+            desc: description,
+            idLabels: idLabels,
+            idList: listId,
+            pos: pos,
+            due: due,
           }
         )
         .then((result) => {
@@ -92,7 +91,7 @@ const TrelloForm = (props) => {
         .catch((err) => {
           console.error(err);
         });
-    } else if (name.includes("QA")) {
+    } else if (title.includes("QA")) {
       const today = new Date();
       const date =
         today.getFullYear() +
@@ -106,12 +105,12 @@ const TrelloForm = (props) => {
         .post(
           "https://api.trello.com/1/cards?key=473378f668b151df4ad3fed7538dc1cf&token=b25458399a5c14fe69cce0bd66aed91bd5a35cde3a2a627c9738cd2abd7df930",
           {
-            name,
-            desc,
-            due,
-            idLabels,
-            idList,
-            pos,
+            name: title,
+            desc: description,
+            due: due,
+            idLabels: idLabels,
+            idList: listId,
+            pos: pos,
           }
         )
         .then((result) => {
@@ -127,12 +126,12 @@ const TrelloForm = (props) => {
         .post(
           "https://api.trello.com/1/cards?key=473378f668b151df4ad3fed7538dc1cf&token=b25458399a5c14fe69cce0bd66aed91bd5a35cde3a2a627c9738cd2abd7df930",
           {
-            name,
-            desc,
-            idLabels,
-            idList,
-            pos,
-            due,
+            name: title,
+            desc: description,
+            idLabels: idLabels,
+            idList: listId,
+            pos: pos,
+            due: due,
           }
         )
         .then((result) => {
