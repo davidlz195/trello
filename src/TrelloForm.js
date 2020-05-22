@@ -1,18 +1,10 @@
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Container,
-  Col,
-} from "reactstrap";
+import { Button, Form, FormGroup, Label, Container, Col } from "reactstrap";
 import axios from "axios";
 
 const styles = {
   container: {
-    width: "650px",
+    width: "90vw",
     marginTop: "3%",
     backgroundColor: "#c6e2ff",
     padding: "1%",
@@ -25,53 +17,55 @@ const styles = {
     flexDirection: "column",
   },
   input: {
-    height: "250px",
+    height: "200px",
+    width: "100%",
   },
   inputTitle: {
-    height: "30px",
+    height: "25px",
   },
   text: {
-    fontSize: "10px",
+    fontSize: "13px",
   },
   text2: {
-    fontSize: "10px",
+    fontSize: "13px",
     float: "right",
-    },
-    submitButton: {
-      marginTop: '3%'
-  }
+  },
+  submitButton: {
+    marginTop: "3%",
+  },
+  header: {
+    fontSize: "20px",
+  },
 };
 
 const TrelloForm = (props) => {
-  const [values, setValues] = useState({});
-  const [char, setChar] = useState(50);
   const [limit, setLimit] = useState(1000);
-
+  const [char, setChar] = useState(50);
+  const [titleInput, setTitleInput] = useState("");
+  const [descInput, setDescInput] = useState("");
+  
   const handleTitleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-      setChar(char - 1)
+    setTitleInput(event.target.value);
+
+    let count = event.target.value.length
+    setChar(50 - count)
   };
-    
+
   const handleDescChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
-      setLimit(limit - 1)
+    setDescInput(event.target.value);
+    let count = event.target.value.length
+    setLimit(1000 - count)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const title = values.title;
-    const description = values.description;
+    const title = titleInput;
+    const description = descInput;
     const listId = "5eb79eefecc831684564d6f8";
     const pos = "top";
 
     if (title.includes("DEV")) {
-      const idLabels = '5eb79eef7669b225494bc374';
+      const idLabels = "5eb79eef7669b225494bc374";
       const due = null;
       axios
         .post(
@@ -120,7 +114,7 @@ const TrelloForm = (props) => {
           console.error(err);
         });
     } else {
-      const idLabels = '5eb79eef7669b225494bc378';
+      const idLabels = "5eb79eef7669b225494bc378";
       const due = null;
       axios
         .post(
@@ -149,37 +143,35 @@ const TrelloForm = (props) => {
         <Form onSubmit={handleSubmit}>
           <Col>
             <FormGroup style={styles.title}>
-              <Label>Title</Label>
+              <Label style={styles.header}>Title</Label>
               <p style={styles.text}>Max 50 characters</p>
-              <Input
+              <textarea
                 style={styles.inputTitle}
-                type="title"
                 onChange={handleTitleChange}
-                value={values.title}
+                value={titleInput}
                 maxLength="50"
                 name="title"
-                maxLength="50"
               />
             </FormGroup>
             <p style={styles.text2}>Characters left: {char}</p>
           </Col>
           <Col>
             <FormGroup style={styles.description}>
-              <Label>Description</Label>
+              <Label style={styles.header}>Description</Label>
               <p style={styles.text}>Max 1000 characters</p>
-              <Input
+              <textarea
                 style={styles.input}
-                type="description"
                 onChange={handleDescChange}
-                value={values.description}
+                value={descInput}
                 maxLength="1000"
                 name="description"
-                maxLength="1000"
               />
             </FormGroup>
             <p style={styles.text2}>Characters left: {limit}</p>
           </Col>
-                  <Button style={styles.submitButton} type="submit">Submit</Button>
+          <Button style={styles.submitButton} type="submit">
+            Submit
+          </Button>
         </Form>
       </Container>
     </>
